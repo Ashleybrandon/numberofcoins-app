@@ -25,11 +25,15 @@ const coinsDash = document.querySelector('.coins-dash');
 
 document.querySelector('.input-form').addEventListener('submit', function(e) {
 
-const newInput = inputField.value;
+
+
+let newInput = inputField.value.replace('.', '');
+// or
+//let newInput = inputField.value.replace(/[^\d.-]/g, '');
 
 if(isNaN(newInput)) {
 
-    coinsDash.innerHTML = `<h1>Enter a number only</h1>`
+    coinsDash.innerHTML = `<h1>Enter a number only</h1>`;
 
 } else {
     
@@ -40,3 +44,14 @@ e.preventDefault();
 });
     
 })();
+
+/* 
+The two scenarios we have at this point
+They both get results for number inputs of pence
+1. Removes any decimal point so that input value is always in pence 
+& displays helpful msg if user enters a non-numerical character
+- marginal downside is that 9.9 = 99
+**or**
+2. Allows users to enter non-numerical chars, but with a few 
+downsides - the code still processes the amount as pence so £55 still equals 55p
+*/
