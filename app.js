@@ -26,19 +26,18 @@ const coinsDash = document.querySelector('.coins-dash');
 document.querySelector('.input-form').addEventListener('submit', function(e) {
 
 
-
 let newInput = inputField.value.replace('.', '');
 // or
 //let newInput = inputField.value.replace(/[^\d.-]/g, '');
 
-if(isNaN(newInput)) {
+ if(isNaN(newInput)) {
 
     coinsDash.innerHTML = `<h1>Enter a number only</h1>`;
 
 } else {
     
     coinsDash.innerHTML = `<h1>${getCoins(newInput)}</h1>`;
-}
+} 
 
 e.preventDefault();
 });
