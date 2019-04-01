@@ -22,35 +22,36 @@ function getCoins(penniesToGo) {
 const inputField = document.querySelector('.input-field');    
 const coinsDash = document.querySelector('.coins-dash');
 
+document.querySelector('.input-form').addEventListener('submit', function(e) {    
 
-document.querySelector('.input-form').addEventListener('submit', function(e) {
+const newInput = inputField.value.replace(/p/ , '');
+const poundsTot = /£/;
+const decP = /\./;
+const rawNumber = parseInt(newInput.match(/\d+/),10);
+const poundsInPence = rawNumber * 100; 
 
+//checks if input contains decimal point
+decP.test(newInput) === true ? console.log('yes') : console.log('no');
 
-let newInput = inputField.value.replace('.', '');
-// or
-//let newInput = inputField.value.replace(/[^\d.-]/g, '');
+if(poundsTot.test(newInput) === true) {
 
- if(isNaN(newInput)) {
+    coinsDash.innerHTML = `<h1>${getCoins(poundsInPence)}</h1>`;
 
-    coinsDash.innerHTML = `<h1>Enter a number only</h1>`;
+} else if(isNaN(newInput)) {
+
+    coinsDash.innerHTML = `<h1>Enter amount in Sterling</h1>`;
 
 } else {
-    
     coinsDash.innerHTML = `<h1>${getCoins(newInput)}</h1>`;
-} 
+}
+
+/*
+- We possibly need a switch statement to handle all req scenarios
+- otherwise we could use the ? : to check for decimals, which I can't get to work in current structure.
+*/
 
 e.preventDefault();
 });
     
 })();
 
-/* 
-The two scenarios we have at this point
-They both get results for number inputs of pence
-1. Removes any decimal point so that input value is always in pence 
-& displays helpful msg if user enters a non-numerical character
-- marginal downside is that 9.9 = 99
-**or**
-2. Allows users to enter non-numerical chars, but with a few 
-downsides - the code still processes the amount as pence so £55 still equals 55p
-*/

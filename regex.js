@@ -34,8 +34,10 @@ reTest(re, str);
 let poundCoins = ifPounds.test(inSterling); //this gave the value of true
 */
 
-let inSterling = '£5';
+let inSterling = '5';
+let inDollars = '5p';
 let ifPounds = /£/; 
+let five = 5; 
 
 if(ifPounds.test(inSterling) === true) {
   let rawNumber = parseInt(inSterling.match(/\d+/),10);
@@ -43,6 +45,13 @@ if(ifPounds.test(inSterling) === true) {
 } else {
   console.log('Sorry, the app is broken. Please refresh the page.');
 }
+ifPounds.test(inSterling) === true ? console.log(6) : console.log(3);
+
+
+//testing switch statements
+
+
+
 
 //console.log(parseInt(coin));
 
@@ -55,5 +64,26 @@ if(ifPounds.test(inSterling) === true) {
 
 /* i need to say if it matches the £, get the number from the
 input and multiply it by 10
+*/
+
+/*
+old input/output function
+
+document.querySelector('.input-form').addEventListener('submit', function(e) {
+
+//could define input field with above function here
+let newInput = inputField.value.replace('.', '');
+// or
+//let newInput = inputField.value.replace(/[^\d.-]/g, '');
+
+ if(isNaN(newInput)) {
+    coinsDash.innerHTML = `<h1>Enter a number only</h1>`;
+} else {
+    coinsDash.innerHTML = `<h1>${getCoins(newInput)}</h1>`;
+} 
+
+e.preventDefault();
+});
+
 */
 
