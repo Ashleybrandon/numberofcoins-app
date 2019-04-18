@@ -25,26 +25,21 @@ const coinsDash = document.querySelector('.coins-dash');
 document.querySelector('.input-form').addEventListener('submit', function(e) {    
 
 const newInput = inputField.value.replace(/p/ , '');
-const poundsTot = /£|\d\.\d\d/;
-const zeroPointPence = /(0)\.*/;
-const decP = /\./;
-const rawNumber = parseInt(newInput.match(/\d+/),10);
+const poundsTot = /£/;
+const poundsDec = /\d\.\d\d|\d\.\d|\+\.d\d/;
+const rawNumber = parseFloat(newInput.match(/\d+/),10);
+// rnPounds is potential inputs of amounts in pounds
+const rnPounds = parseFloat(newInput.match(/\d\.\d\d|\d\.\d|\+\.d\d/),10);
 const poundsInPence = rawNumber * 100;
-const downToPence = rawNumber / 100;
-//one that divides by 100 if pence
+const poundsWDec = rnPounds * 100;
 
+//checks if input contains £ or #.## / #.#
+if(poundsTot.test(newInput) === true || poundsDec.test(newInput) === true ) {
 
-
-zeroPointPence.test(newInput) === true ? 
-coinsDash.innerHTML = `<h1>${getCoins(downToPence)}</h1>` : 
-coinsDash.innerHTML = `<h1>Enter amount in Sterling</h1>`;
-
-//checks if input contains decimal point
-if(poundsTot.test(newInput) === true) {
 
 
 //interprets input intention as £
-    coinsDash.innerHTML = `<h1>${getCoins(poundsInPence)}</h1>`;
+    coinsDash.innerHTML = `<h1>${getCoins(poundsWDec)}</h1>`;
 
 } else if(isNaN(newInput)) {
 
@@ -59,27 +54,11 @@ if(poundsTot.test(newInput) === true) {
 
 
 
-
-//decP.test(newInput) === true ? console.log('yes') : console.log('no');
-/*
-
-now that we can add or/ || in regex - we could probs define pounds or pence in that
-
-
-- We possibly need a switch statement to handle all req scenarios
-- otherwise we could use the ? : to check for decimals, which I can't get to work in current structure.
-
-alternatively you could make an array of regex objects, and a loop that says if there's a match, output that one
-
-
----12/04/2019
-- you can't have conditional cases in switch statements. switches only test strings, numbers, specific values etc.
-- At this point it seems like you need to define more scenarios as variables and say || or && in the if/else
-
-*/
-
 e.preventDefault();
 });
     
 })();
 
+/*
+It needs to be able to handle pounds amounts without decimals, which it returns NaN for currently. if it's returning NaN, that means it's returning in 'if', and we aren't handling all possible £ scenarios correctly in that statement.
+*/
